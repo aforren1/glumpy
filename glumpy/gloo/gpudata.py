@@ -99,12 +99,13 @@ class GPUData(np.ndarray):
         """
 
         if self.base is not None:
-            base = self.base.__array_interface__['data'][0]
+            if not hasattr(self, '_addr'):
+                self._addr = self.base.__array_interface__['data'][0]
+            base = self._addr
             view = Z.__array_interface__['data'][0]
             offset = view - base
-            shape = np.array(Z.shape) - 1
-            strides = np.array(Z.strides)
-            size = (shape*strides).sum() + Z.itemsize
+            shape = [x - 1 for x in Z.shape]
+            size = sum([x * y for x, y in zip(shape, Z.strides)]) + Z.itemsize
             return offset, offset+size
         else:
             return 0, self.size*self.itemsize
@@ -125,8 +126,8 @@ class GPUData(np.ndarray):
         Z = np.ndarray.__getitem__(self, key)
         if Z.shape == ():
             # WARN: Be careful with negative indices !
-            key = np.mod(np.array(key)+self.shape, self.shape)
-            offset = self._extents[0]+(key * self.strides).sum()
+            key = [(s + key) % s for s in self.shape]
+            offset = sum([k * s for k, s in zip(key, self.strides)]) + self._extents[0]
             size = Z.itemsize
             self._add_pending_data(offset, offset+size)
             key = tuple(key)

@@ -309,10 +309,11 @@ class Program(GLObject):
         match.
         """
 
-        if isinstance(data, (VertexBuffer,VertexArray)):
+        if isinstance(data, (VertexBuffer, VertexArray)):
+            raveled_data = data.ravel()
             for name in data.dtype.names:
                 if name in self._attributes.keys():
-                    self._attributes[name].set_data(data.ravel()[name])
+                    self._attributes[name].set_data(raveled_data[name])
 
 
 
