@@ -27,7 +27,7 @@ if __name__ == "__main__":
           platform = "Any",
           maintainer= "Nicolas P. Rougier",
           maintainer_email="Nicolas.Rougier@inria.fr",
-          install_requires=['numpy', 'triangle', 'cython'],
+          install_requires=['numpy', 'triangle', 'cython', 'pyopengl'],
           classifiers=[
               "Development Status :: 4 - Beta",
               "Operating System :: MacOS :: MacOS X",
