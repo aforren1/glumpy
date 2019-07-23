@@ -22,7 +22,7 @@ the base array that needs to be uploaded.
      (0, 200)
 """
 import numpy as np
-
+import ctypes
 
 class GPUData(np.ndarray):
     """
@@ -100,7 +100,7 @@ class GPUData(np.ndarray):
 
         if self.base is not None:
             if not hasattr(self, '_addr'):
-                self._addr = self.base.__array_interface__['data'][0]
+                self._addr = ctypes.addressof(ctypes.c_char.from_buffer(self.base.data))
             base = self._addr
             view = Z.__array_interface__['data'][0]
             offset = view - base
