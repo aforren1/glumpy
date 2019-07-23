@@ -299,7 +299,6 @@ class Program(GLObject):
             self._attributes[name] = attribute
             dtype.append(attribute.dtype)
 
-
     def bind(self, data):
         """
         Bind a vertex buffer to the program, matching buffer record names with
@@ -313,7 +312,7 @@ class Program(GLObject):
             raveled_data = data.ravel()
             for name in data.dtype.names:
                 if name in self._attributes.keys():
-                    self._attributes[name].set_data(raveled_data[name])
+                    self._attributes[name]._data = raveled_data[name]
 
 
 
