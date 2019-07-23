@@ -104,8 +104,7 @@ class GPUData(np.ndarray):
             base = self._addr
             view = Z.__array_interface__['data'][0]
             offset = view - base
-            shape = [x - 1 for x in Z.shape]
-            size = sum([x * y for x, y in zip(shape, Z.strides)]) + Z.itemsize
+            size = sum([(x - 1) * y for x, y in zip(Z.shape, Z.strides)]) + Z.itemsize
             return offset, offset+size
         else:
             return 0, self.size*self.itemsize
