@@ -54,6 +54,7 @@ class Buffer(GPUData,GLObject):
 
         self._handle = gl.glGenBuffers(1)
         self._activate()
+        self._ravel_data = self.ravel().view(np.ubyte)
         log.debug("GPU: Creating buffer (id=%d)" % self._id)
         gl.glBufferData(self._target, self.nbytes, None, self._usage)
         self._deactivate()
@@ -87,8 +88,7 @@ class Buffer(GPUData,GLObject):
             start, stop = self.pending_data
             offset, nbytes = start, stop-start
             # offset, nbytes = self.pending_data
-            data = self.ravel().view(np.ubyte)[offset:offset+nbytes]
-            gl.glBufferSubData(self.target, offset, nbytes, data)
+            gl.glBufferSubData(self.target, offset, nbytes, self._ravel_data[offset:offset+nbytes])
         self._pending_data = None
         self._need_update = False
 
