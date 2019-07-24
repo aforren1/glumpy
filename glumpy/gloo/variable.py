@@ -207,7 +207,6 @@ class Uniform(Variable):
         self._ufunction = Uniform._ufunctions[self._gtype]
         self._texture_unit = -1
 
-
     def set_data(self, data):
         """ Assign new data to the variable (deferred operation) """
 
@@ -270,6 +269,7 @@ class Uniform(Variable):
                 gl.glActiveTexture(gl.GL_TEXTURE0 + self._texture_unit)
                 self.data.activate()
 
+
     def _update(self):
 
         # Check active status (mandatory)
@@ -291,7 +291,7 @@ class Uniform(Variable):
         # Textures (need to get texture count)
         elif self._gtype in (gl.GL_SAMPLER_1D, gl.GL_SAMPLER_2D, gl.GL_SAMPLER_CUBE):
             # texture = self.data
-            log.debug("GPU: Activactin texture %d" % self._texture_unit)
+            log.debug("GPU: Activating texture %d" % self._texture_unit)
             # gl.glActiveTexture(gl.GL_TEXTURE0 + self._unit)
             # gl.glBindTexture(texture.target, texture.handle)
             gl.glUniform1i(self._handle, self._texture_unit)
