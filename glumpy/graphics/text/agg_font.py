@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 import numpy as np
 from . font import Glyph
-from glumpy.ext import freetype
+import freetype
 
 
 

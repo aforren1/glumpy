@@ -3,7 +3,6 @@
 # Distributed under the (new) BSD License.
 # -----------------------------------------------------------------------------
 # from . import glfw
-from . import freetype
 
 try:
     from . import sdf

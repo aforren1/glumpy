@@ -45,8 +45,6 @@ if __name__ == "__main__":
                     'glumpy.data',
                     'glumpy.ext',
                     'glumpy.ext.sdf',
-                    'glumpy.ext.freetype',
-                    'glumpy.ext.freetype.ft_enums',
                     'glumpy.app',
                     'glumpy.app.window',
                     'glumpy.app.window.backends',
